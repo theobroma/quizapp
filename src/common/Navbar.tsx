@@ -1,8 +1,10 @@
-import React from "react";
 import { Box, Divider, Flex, Heading, Link } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import React from "react";
+import { useAuth } from "../lib/auth";
 
 const Navbar: React.FC<{}> = () => {
+  const { auth, signOut } = useAuth();
   const router = useRouter();
 
   return (
@@ -12,17 +14,34 @@ const Navbar: React.FC<{}> = () => {
           QuizApp
         </Heading>
         <Box>
-          <Box p={2}>
-            <Link
-              p={2}
-              onClick={() => router.push("/signin")}
-              fontWeight={
-                router.pathname === "/signin" ? "extrabold" : "normal"
-              }
-            >
-              Sign In
-            </Link>
-          </Box>
+          {auth ? (
+            <Box p={2}>
+              <Link
+                p={2}
+                fontWeight={
+                  router.pathname === "/quiz/new" ? "extrabold" : "normal"
+                }
+                onClick={() => router.push("/quiz/new")}
+              >
+                Add new quiz
+              </Link>
+              <Link p={2} onClick={() => signOut()}>
+                Logout
+              </Link>
+            </Box>
+          ) : (
+            <Box p={2}>
+              <Link
+                p={2}
+                onClick={() => router.push("/signin")}
+                fontWeight={
+                  router.pathname === "/signin" ? "extrabold" : "normal"
+                }
+              >
+                Sign In
+              </Link>
+            </Box>
+          )}
         </Box>
       </Flex>
       <Divider
