@@ -18,7 +18,6 @@ const Home = (props) => {
   const router = useRouter();
 
   const generateQuizCard = (singleQuiz) => {
-    console.log(singleQuiz);
     return (
       <Box m={3} borderWidth="1px" borderRadius="lg" p={6} boxShadow="xl">
         <Heading as="h3" size="lg">
